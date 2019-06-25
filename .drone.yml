@@ -1,28 +1,18 @@
----
 kind: pipeline
-name: "only on open"
-
 steps:
-- name: echo
+- name: echo only
   image: golang
+  when:
+    event:
+    - pull_request
+    action:
+    - opened
   commands:
   - echo "this only triggers on open"
-
-trigger:
-  event:
-  - pull_request
-  action:
-  - opened
----
-kind: pipeline
-name: "all pr events"
-
-steps:
-- name: echo
+- name: all pr events
   image: golang
+  when:
+    event:
+    - pull_request
   commands:
-  - echo "this should always trigger"
-
-trigger:
-  event:
-  - pull_request
+  - echo "this only triggers on open"
